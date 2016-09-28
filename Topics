@@ -2,3 +2,6 @@ threadpoolexecutor
 concurrency level in concurrenthashmap
 write your custom classloader
 concurrent hashmap
+
+question: when we spliting big into multiple chunck. so what the java api we use along with multithreading
+
