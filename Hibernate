@@ -1,1 +1,52 @@
 
+Elements of Hibernate Architecture 
+The SessionFactory is a factory of session and client of ConnectionProvider. It holds second level cache (optional) of data.
+    The org.hibernate.SessionFactory interface provides factory method to get the object of Session.
+ 
+The session object provides an interface between the application and data stored in the database. 
+    It is a short-lived object and wraps the JDBC connection.It is factory of Transaction, Query and Criteria.
+    It holds a first-level cache (mandatory) of data.. The org.hibernate.Session interface provides methods to insert, update and delete the object.
+ 
+TransactionFactory:It is a factory of Transaction. It is optional.
+
+The transaction object specifies the atomic unit of work. It is optional. 
+
+Connection Provider: It is a factory of JDBC connections. It abstracts the application from DriverManager or DataSource. It is optional.
+
+
+
+Hibernate Example:
+    1.Create the Persistent class: A no-arg constructor,Prefer non-final class
+    2.Create the mapping file for Persistent class :class_name.hbm.xml
+                      <hibernate-mapping>  
+              <class name="com.javatpoint.mypackage.Employee" table="emp1000">  
+                <id name="id">  
+                 <generator class="assigned"></generator>  
+                </id>  
+
+                <property name="firstName"></property>  
+                <property name="lastName"></property>  
+
+              </class>  
+
+             </hibernate-mapping>  
+    
+    3.Create the Configuration file :contains informations about the database and mapping file.  hibernate.cfg.xml   
+                            <hibernate-configuration>  
+
+                <session-factory>  
+                    <property name="hbm2ddl.auto">update</property>  
+                    <property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>  
+                    <property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>  
+                    <property name="connection.username">system</property>  
+                    <property name="connection.password">oracle</property>  
+                    <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>  
+                <mapping resource="employee.hbm.xml"/>  
+                </session-factory>  
+
+            </hibernate-configuration> 
+    
+              
+    4.Create the class that retrieves or stores the persistent object
+    5.Load the jar file
+    6.Run the first hibernate application without IDE
