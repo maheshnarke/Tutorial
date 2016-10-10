@@ -17,7 +17,7 @@ Connection Provider: It is a factory of JDBC connections. It abstracts the appli
 
 Hibernate Example:
     1.Create the Persistent class: A no-arg constructor,Prefer non-final class
-    2.Create the mapping file for Persistent class :class_name.hbm.xml
+    2.Create the mapping file for Persistent class :class_name.hbm.xml 
                       <hibernate-mapping>  
               <class name="com.javatpoint.mypackage.Employee" table="emp1000">  
                 <id name="id">  
@@ -30,6 +30,12 @@ Hibernate Example:
               </class>  
 
              </hibernate-mapping>  
+             
+             OR with annotation
+                @Entity  
+                @Table(name= "emp500") 
+                @Id  
+                @Column
     
     3.Create the Configuration file :contains informations about the database and mapping file.  hibernate.cfg.xml   
                             <hibernate-configuration>  
@@ -42,6 +48,9 @@ Hibernate Example:
                     <property name="connection.password">oracle</property>  
                     <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>  
                 <mapping resource="employee.hbm.xml"/>  
+                or 
+                    <mapping class="com.javatpoint.Employee"/>  
+                    
                 </session-factory>  
 
             </hibernate-configuration> 
@@ -50,3 +59,56 @@ Hibernate Example:
     4.Create the class that retrieves or stores the persistent object
     5.Load the jar file
     6.Run the first hibernate application without IDE
+    
+    
+    
+    Generator classes in Hibernate:
+    
+    assigned
+    increment
+    sequence
+    hilo
+    native
+    identity
+    seqhilo
+    uuid
+    guid
+    select
+    foreign
+    sequence-identity
+
+
+Hibernate Inheritance Mapping
+
+    1.Table Per Hierarchy:single table is required to map the whole hierarchy, an extra column (known as discriminator column) is added to identify the class. 
+                @Inheritance(strategy=InheritanceType.SINGLE_TABLE)  
+                @DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING)  
+                @DiscriminatorValue(value="employee") 
+       
+    2.Table Per Concrete class:[union] tables are created as per class. But duplicate column is added in subclass tables.
+                Parent: @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  
+                Child: @AttributeOverrides({  
+                            @AttributeOverride(name="id", column=@Column(name="id")),  
+                            @AttributeOverride(name="name", column=@Column(name="name"))  
+                        })  
+    
+    3.Table Per Subclass:[Joined] tables are created as per class but related by foreign key. So there are no duplicate columns.
+                Parent: @Inheritance(strategy=InheritanceType.JOINED)  
+                Child : @PrimaryKeyJoinColumn(name="ID")  
+                
+                
+Collection Mapping:
+java.util.List
+java.util.Set
+java.util.SortedSet
+java.util.Map
+java.util.SortedMap
+java.util.Collection
+
+
+One to Many mapping in Hibernate by List Example:
+
+    
+    
+
+
