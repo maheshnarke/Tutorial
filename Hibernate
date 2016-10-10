@@ -106,9 +106,89 @@ java.util.SortedMap
 java.util.Collection
 
 
-One to Many mapping in Hibernate by List Example:
+One to One:
+A: @OneToOne(mappedBy="txn")
+	@Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private B b;
+    
+B:  @OneToOne
+	@PrimaryKeyJoinColumn
+	private A a;
+
+One to Many :
+A: @OneToMany(mappedBy="A")
+	private Set<B> b;
+B: @ManyToOne
+	@JoinColumn(name="cart_id", nullable=false)
+	private A a;
+    
+Many to Many :
+B: @ManyToMany(targetEntity = B.class, cascade = { CascadeType.ALL })
+	@JoinTable(name = "CART_ITEMS", 
+				joinColumns = { @JoinColumn(name = "cart_id") }, 
+				inverseJoinColumns = { @JoinColumn(name = "item_id") })
+                private Set<B> b;
+ 
+ 
+Hibernate Query Language (HQL) is same as SQL (Structured Query Language) but it doesn't depends on the table of the database. 
+    Instead of table name, we use class name in HQL. So it is database independent query language.
+    The object of Query can be obtained by calling the createQuery() method Session interface.
+    The query interface provides many methods. There is given commonly used methods:
+    public int executeUpdate() is used to execute the update or delete query.
+    public List list() returns the result of the ralation as a list.
+    public Query setFirstResult(int rowno) specifies the row number from where record will be retrieved.
+    public Query setMaxResult(int rowno) specifies the no. of records to be retrieved from the relation (table).
+    public Query setParameter(int position, Object value) it sets the value to the JDBC style query parameter.
+    public Query setParameter(String name, Object value) it sets the value to a named query parameter
+    
+
+The Hibernate Criteria Query Language (HCQL) is used to fetch the records based on the specific criteria. 
+    The Criteria interface provides methods to apply criteria such as retreiving all the records of table whose salary is greater than 50000 etc. 
+    The object of Criteria can be obtained by calling the createCriteria() method of Session interface. 
+    The commonly used methods of Criteria interface are as follows:
+
+    public Criteria add(Criterion c) is used to add restrictions.
+    public Criteria addOrder(Order o) specifies ordering.
+    public Criteria setFirstResult(int firstResult) specifies the first number of record to be retreived.
+    public Criteria setMaxResult(int totalResult) specifies the total number of records to be retreived.
+    public List list() returns list containing object.
+    public Criteria setProjection(Projection projection) specifies the projection.
 
     
-    
+The hibernate named query is way to use any query by some meaningful name. It is like using alias names. 
+The Hibernate framework provides the concept of named queries so that application programmer need not to scatter queries to all the java code. 
+    @NamedQueries(  
+        {  
+            @NamedQuery(  
+            name = "findEmployeeByName",  
+            query = "from Employee e where e.name = :name"  
+            )  
+        }  
+    )  
 
 
+
+First Level Cache
+
+Session object holds the first level cache data. It is enabled by default. 
+The first level cache data will not be available to entire application.
+An application can use many session object.
+
+
+Second Level Cache
+
+SessionFactory object holds the second level cache data.
+The data stored in the second level cache will be available to entire application. 
+But we need to enable it explicitely.
+ There are four ways to use second level cache.
+    read-only: caching will work for read only operation.
+    nonstrict-read-write: caching will work for read and write but one at a time.
+    read-write: caching will work for read and write, can be used simultaneously.
+    transactional: caching will work for transaction.
+
+Add 2 configuration setting in hibernate.cfg.xml file
+    <property name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property>  
+    <property name="hibernate.cache.use_second_level_cache">true</property>  
+   
+   
+ 
