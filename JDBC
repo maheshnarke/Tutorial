@@ -1,1 +1,22 @@
 
+ The JDBC API consists of the following core parts:
+
+    JDBC Drivers
+    Connections  :: Connection connection =  DriverManager.getConnection(url, user, password);
+    Statements   : Statement statement = connection.createStatement();
+    Result Sets  :: String sql = "select * from people";
+                    ResultSet result = statement.executeQuery(sql);
+                  To update/delete database instead of calling the executeQuery() method, you call the executeUpdate() method. 
+                  Statement statement = connection.createStatement();
+                  String    sql       = "update people set name='John' where id=123";
+                  int rowsAffected    = statement.executeUpdate(sql);
+    
+ There are 4 different types of JDBC drivers:
+
+    Type 1: JDBC-ODBC bridge driver
+    Type 2: Java + Native code driver
+    Type 3: All Java + Middleware translation driver
+    Type 4: All Java driver
+    
+    
+    A java.sql.CallableStatement is used to call stored procedures in a database. 
