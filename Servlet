@@ -1,0 +1,9 @@
+Servlet life cycle
+    Servlet class is loaded.
+    Servlet instance is created.
+    init method is invoked.
+    service method is invoked.
+    destroy method is invoked.
+    
+    
+    
