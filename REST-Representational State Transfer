@@ -1,0 +1,57 @@
+Representational State Transfer:
+ It relies on a stateless, client-server, cacheable communications protocol -- and in virtually all cases, the HTTP protocol is used.
+Like Web Services, REST offers no built-in security features, encryption, session management, QoS guarantees, etc. 
+But also as with Web Services, these can be added by building on top of HTTP:
+
+
+
+RESTful services should have following properties and features,
+    Representations :Identify entities and relations.  the next thing we need is to find a way to represent these resources in our system.
+    Messages
+    URIs
+    Uniform interface :HTTP 1.1 provides a set of methods, called verbs, for this purpose.
+    
+                    GET :Read a resource.
+                    PUT:Insert a new resource or update if the resource already exists. :Idempotent{An Idempotent operation is an operation that gives the same result no matter how many times you perform it. }
+                    POST: Insert a new resource. Also can be used to update an existing resource.
+    Stateless
+    Links between resources
+    Caching
+
+
+
+Key components of a REST architecture:
+
+    Resources, which are identified by logical URLs. Both state and functionality are represented using resources.
+    A web of resources, meaning that a single resource should not be overwhelmingly large and contain too fine-grained details. Whenever relevant, a resource should contain links to additional information -- just as in web pages.
+    The system has a client-server, but of course one component's server can be another component's client.
+    There is no connection state; interaction is stateless (although the servers and resources can of course be stateful). Each new request should carry all the information required to complete it, and must not rely on previous interactions with the same client.
+    Resources should be cachable whenever possible (with an expiration date/time). The protocol must allow the server to explicitly specify which resources may be cached, and for how long.
+        Since HTTP is universally used as the REST protocol, the HTTP cache-control headers are used for this purpose.
+        Clients must respect the server's cache specification for each resource.
+    Proxy servers can be used as part of the architecture, to improve performance and scalability. Any standard HTTP proxy can be used.
+
+
+
+
+Difference between PUT and POST
+
+The key difference between PUT and POST is that PUT is idempotent while POST is not.
+No matter how many times you send a PUT request, the results will be same. 
+POST is not an idempotent method. Making a POST multiple times may result in multiple resources getting created on the server.
+Another difference is that, with PUT, you must always specify the complete URI of the resource.
+This implies that the client should be able to construct the URI of a resource even if it does not yet exist on the server. 
+This is possible when it is the client's job to choose a unique name or ID for the resource, just like creating a user on the server requires the client to choose a user ID.
+If a client is not able to guess the complete URI of the resource, then you have no option but to use POST.
+
+
+
+
+
+ROA (REST Oriented Architecture) vs SOA (Service Based Architecture) using REST services.
+Another SOA advantages include the type-safety of XML requests (for responses, ROA can also use XML if the developers desire it).
+
+SOAP vs REST
+http://www.java2blog.com/2016/06/difference-between-soap-and-rest-web-services.html
+
+
