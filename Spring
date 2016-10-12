@@ -1,1 +1,85 @@
 
+Spring Modules
+    1. Sprig core container: core,beans,context,Expression Language
+    2.AOP,Aspects,Instrumentation
+    3.Data access/Integration: JDBC,JMS,ORM,Oxm,Transaction
+    4.Web/MVC:Web,servlet,portlets,struts
+    5.Test
+    
+    
+ The main tasks performed by IoC container are:
+
+    to instantiate the application class
+    to configure the object
+    to assemble the dependencies between the objects
+There are two types of IoC containers. They are:
+    BeanFactory
+    ApplicationContext
+  
+ The ApplicationContext interface is built on top of the BeanFactory interface. 
+ It adds some extra functionality than BeanFactory such as simple integration with Spring's AOP, 
+ message resource handling (for I18N), event propagation, application layer specific context (e.g. WebApplicationContext) 
+ for web application. So it is better to use ApplicationContext than BeanFactory. 
+
+
+Spring framework provides two ways to inject dependency
+
+    By Constructor <arguments>
+    By Setter method :<property> 
+
+Applicationcontext.xml
+The ref attribute is used to define the reference of another object.such way we 7are passing the dependent object as an constructor argument.
+
+
+Inheriting Bean in Spring
+By using the parent attribute of bean, we can specify the inheritance relation between the beans
+
+Aspect Oriented Programming (AOP) compliments OOPs in the sense that it also provides modularity.
+But the key unit of modularity is aspect than class.
+AOP breaks the program logic into distinct parts (called concerns). It is used to increase modularity by cross-cutting concerns.
+A cross-cutting concern is a concern that can affect the whole application and
+should be centralized in one location in code as possible, such as transaction management, authentication, logging, security etc.
+AOP concepts and terminologies are as follows:
+
+    Join point : Join point is any point in your program such as method execution, exception handling, field access etc. Spring supports only method execution join point.
+    Advice : Advice represents an action taken by an aspect at a particular join point. There are different types of advices:
+            Before Advice: it executes before a join point.
+            After Returning Advice: it executes after a joint point completes normally.
+            After Throwing Advice: it executes if method exits by throwing an exception.
+            After (finally) Advice: it executes after a join point regardless of join point exit whether normally or exceptional return.
+            Around Advice: It executes before and after a join point.
+
+    Pointcut : It is an expression language of AOP that matches join points.
+    Introduction: It means introduction of additional method and fields for a type. It allows you to introduce new interface to any advised object.
+    Target Object : It is the object i.e. being advised by one or more aspects. It is also known as proxied object in spring because Spring AOP is implemented using runtime proxies.
+    Aspect : It is a class that contains advices, joinpoints etc.
+    Interceptor :It is an aspect that contains only one advice.
+    AOP Proxy: It is used to implement aspect contracts, created by AOP framework. It will be a JDK dynamic proxy or CGLIB proxy in spring framework.
+    Weaving: It is the process of linking aspect with other application types or objects to create an advised object. Weaving can be done at compile time, load time or runtime. Spring AOP performs weaving at runtime.
+
+
+AOP implementations are provided by:
+    AspectJ
+    Spring AOP
+    JBoss AOP
+
+Spring AspectJ AOP implementation provides many annotations:
+
+    @Aspect declares the class as aspect.
+    @Pointcut declares the pointcut expression.
+
+The annotations used to create advices are given below:
+
+    @Before declares the before advice. It is applied before calling the actual method.
+    @After declares the after advice. It is applied after calling the actual method and before returning result.
+    @AfterReturning declares the after returning advice. It is applied after calling the actual method and before returning result. But you can get the result value in the advice.
+    @Around declares the around advice. It is applied before and after calling the actual method.
+    @AfterThrowing declares the throws advice. It is applied if actual method throws exception.
+
+
+Spring Jdbc Approaches
+Spring framework provides following approaches for JDBC database access:
+    JdbcTemplate
+    NamedParameterJdbcTemplate
+    SimpleJdbcTemplate
+    SimpleJdbcInsert and SimpleJdbcCall
