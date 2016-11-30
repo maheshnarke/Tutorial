@@ -1,0 +1,84 @@
+/*
+ * Copyright (c) 2016 Barclays Bank Plc, All Rights Reserved.
+ *
+ * This code is confidential to Barclays Bank Plc and shall not be disclosed
+ * outside the bank without the prior written permission of the IT Director of
+ * UK Banking.
+ *
+ * In the event that such disclosure is permitted the code shall not be copied
+ * or distributed other than on a need-to-know basis and any recipients may be
+ * required to sign a confidentiality undertaking in favour of Barclays Bank
+ * Plc.
+ */
+package com.demo.poc;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+/**
+ * TODO write a comment...
+ * 
+ * @author mahesh.narkepatil
+ * @created 30 Nov 2016
+ */
+public class Solution {
+    public static String[] isBalanced(String[] strList ) {
+        
+        String[] outputList=new String[strList.length];
+        boolean isFlag=false;
+        for (int j = 0; j < strList.length; j++) {
+            Stack<String> stack = new Stack<String>();
+            String expression=strList[j];
+            for (int i = 0; i < expression.length(); i++) {
+                String str = "" + expression.charAt(i);
+
+                if (str.equals("(") || str.equals("[") || str.equals("{")) {
+                    stack.push(str);
+                }
+
+                if (str.equals(")") || str.equals("]") || str.equals("}")) {
+                    if (stack.isEmpty()) {
+                        isFlag=false;
+                    }
+                    String opening = stack.peek();
+                    if (str.equals(")") && opening.equals("(")) {
+                        stack.pop();
+                    }
+                    if (str.equals("]") && opening.equals("[")) {
+                        stack.pop();
+                    }
+                    if (str.equals("}") && opening.equals("{")) {
+                        stack.pop();
+                    }
+                }
+            }
+            if (expression.length() > 0 && stack.isEmpty()) {
+                outputList[j]="YES";
+                isFlag=true;
+            }else{
+                outputList[j]="NO";
+            }
+
+        }
+        
+
+        return outputList;
+
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        String[] strList = new String[t];
+        String[] outList = new String[t];
+        for (int a0 = 0; a0 < t; a0++) {
+            String expression = in.next();
+            strList[a0] = expression;
+        }
+        outList = isBalanced(strList);
+        for (int a0 = 0; a0 < t; a0++) {
+           System.out.println(outList[a0]);
+        }
+        
+    }
+}
