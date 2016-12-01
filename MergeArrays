@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2016 Barclays Bank Plc, All Rights Reserved.
+ *
+ * This code is confidential to Barclays Bank Plc and shall not be disclosed
+ * outside the bank without the prior written permission of the IT Director of
+ * UK Banking.
+ *
+ * In the event that such disclosure is permitted the code shall not be copied
+ * or distributed other than on a need-to-know basis and any recipients may be
+ * required to sign a confidentiality undertaking in favour of Barclays Bank
+ * Plc.
+ */
+package com.demo.poc;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+/**
+ * TODO write a comment...
+ * 
+ * @author mahesh.narkepatil
+ * @created 30 Nov 2016
+ */
+public class MergeArray {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int noOfArray = scanner.nextInt();
+        int NoOfElement = scanner.nextInt();
+        ArrayList<Integer> a1 = new ArrayList<Integer>();
+        for (int i = 0; i < noOfArray; i++) {
+            int[] array = new int[NoOfElement];
+            for (int j = 0; j < NoOfElement; j++) {
+                array[i] = scanner.nextInt();
+                a1.add(array[i]);
+
+            }
+        }
+        Collections.sort(a1);
+        for (Integer i : a1) {
+            System.out.print(i + " ");
+        }
+    }
+}
